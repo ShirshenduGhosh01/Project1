@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- head content here -->
+</head>
+<body>
+  <?php
+  // Check if the form is submitted
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+      // Retrieve form data
+      $registrationNumber = $_POST["registrationNumber"];
+      $name = $_POST["name"];
+      $roomNumber = $_POST["roomNumber"];
+      $gender = isset($_POST["gender"]) ? $_POST["gender"] : "";
+      $blockNumber = $_POST["blockNumber"];
+      $issueType = $_POST["issueType"];
+      $complaint = $_POST["complaint"];
+
+      // Format the data
+      $formData = "Registration Number: $registrationNumber\n";
+      $formData .= "Name: $name\n";
+      $formData .= "Room Number: $roomNumber\n";
+      $formData .= "Gender: $gender\n";
+      $formData .= "Block Number: $blockNumber\n";
+      $formData .= "Complaint Type: $issueType\n";
+      $formData .= "Complaint: $complaint\n\n";
+
+      // Define the file path
+      $filePath = "form_responses.txt";
+
+      // Open the file in append mode
+      $file = fopen($filePath, "a");
+
+      // Write the form data to the file
+      fwrite($file, $formData);
+
+      // Close the file
+      fclose($file);
+
+      // Display a success message
+      echo "<h2>Complaint Submitted Successfully!</h2>";
+  } else {
+      // If the form is not submitted, redirect to the form page
+      header("Location: Complaint.html");
+      exit();
+  }
+  ?>
+  <!-- rest of the HTML code here -->
+</body>
+</html>
